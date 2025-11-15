@@ -4,11 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Notatnik Offline PWA</title>
+
     <meta name="theme-color" content="#0f172a" />
     <meta name="background-color" content="#0b1220" />
+
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icons/icon-192.png" />
     <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+
     <link rel="stylesheet" href="./css/styles/styles.css" />
   </head>
   <body>
@@ -22,67 +25,99 @@
     </header>
 
     <main id="app-root">
+      <!-- Widok listy notatek -->
       <section id="view-list" data-view hidden>
         <header class="view-header">
           <h2>Twoje notatki</h2>
-          <input id="searchInput" type="search" placeholder="Szukaj..." />
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Szukaj po tytule lub treści..."
+            aria-label="Szukaj w notatkach"
+          />
           <button id="newNoteButton">+ Nowa</button>
         </header>
-        <ul id="notesList" class="notes-list"></ul>
+
+        <ul id="notesList" class="notes-list" aria-live="polite">
+          <!-- JS: ListView.renderList() -->
+        </ul>
       </section>
 
+      <!-- Widok dodawania / edycji notatki -->
       <section id="view-editor" data-view hidden>
         <header class="view-header">
           <h2>Dodaj / Edytuj notatkę</h2>
         </header>
-        <form id="noteForm">
+
+        <form id="noteForm" aria-label="Formularz notatki">
           <label>
             Tytuł
             <input
               id="noteTitleInput"
               name="title"
               type="text"
-              placeholder="Krótki tytuł"
+              placeholder="Krótki tytuł notatki"
               required
             />
           </label>
+
           <label>
             Treść
             <textarea
               id="noteContentInput"
               name="content"
-              placeholder="Treść notatki"
               rows="8"
+              placeholder="Treść notatki"
               required
             ></textarea>
           </label>
-          <div id="audioControls" hidden>
-            <button type="button" id="startRecordButton">🎙️ Nagraj</button>
-            <button type="button" id="stopRecordButton" disabled>
-              ⏹️ Stop
-            </button>
-            <span id="recordTimer">00:00</span>
-            <div id="recordPreview"></div>
-          </div>
+
+          <!-- Sekcja funkcji urządzenia (GPS, powiadomienia, wibracje) -->
+          <section class="helper-block" aria-label="Funkcje urządzenia">
+            <h3>Funkcje urządzenia</h3>
+            <p>
+              Te przyciski wykorzystają natywne API przeglądarki:
+              geolokalizację, powiadomienia i wibracje.
+            </p>
+            <div class="helper-actions">
+              <button type="button" id="getLocationButton">
+                📍 Pobierz lokalizację
+              </button>
+              <button type="button" id="enableNotificationsButton">
+                🔔 Włącz powiadomienia
+              </button>
+              <button type="button" id="testVibrationButton">
+                📳 Test wibracji
+              </button>
+            </div>
+            <p id="locationPreview" class="helper-info">
+              Lokalizacja: (jeszcze nie pobrana)
+            </p>
+          </section>
+
           <div class="form-actions">
             <button type="submit" id="saveNoteButton">💾 Zapisz</button>
             <a href="#/list" class="button-secondary">Anuluj</a>
           </div>
         </form>
-        <div class="helper-block">
-          <button id="enableMicButton" type="button">🎤 Włącz mikrofon</button>
-          <button id="enableNotificationsButton" type="button">
-            🔔 Włącz powiadomienia
-          </button>
-        </div>
       </section>
 
+      <!-- Widok szczegółów notatki -->
       <section id="view-detail" data-view hidden>
         <header class="view-header">
           <h2>Szczegóły notatki</h2>
         </header>
-        <article id="noteDetail"></article>
-        <div id="detailAudio"></div>
+
+        <article id="noteDetail">
+          <!-- JS: tutaj wstawimy tytuł, treść, datę -->
+        </article>
+
+        <section id="noteMeta" class="helper-block">
+          <h3>Szczegóły techniczne</h3>
+          <p id="noteLocationInfo">📍 Lokalizacja: brak danych</p>
+          <p id="noteNotificationInfo">🔔 Powiadomienia: nieaktywne</p>
+        </section>
+
         <div class="detail-actions">
           <a id="editLink" href="#/edit" class="button-primary">✏️ Edytuj</a>
           <button id="deleteNoteButton" class="button-danger">🗑️ Usuń</button>
@@ -91,19 +126,21 @@
     </main>
 
     <footer class="app-footer">
-      <small
-        >Tryb offline wspierany.
-        <span id="offlineBadge" hidden>🔌 Jesteś offline</span></small
-      >
+      <small>
+        Tryb offline wspierany.
+        <span id="offlineBadge" hidden>🔌 Jesteś offline</span>
+      </small>
     </footer>
 
+    <!-- Skrypty aplikacji -->
     <script src="./js/core/router.js" defer></script>
-    <script src="./js/core/db.js" defer></script>
     <script src="./js/core/storage.js" defer></script>
     <script src="./js/core/permissions.js" defer></script>
+
     <script src="./js/ui/listView.js" defer></script>
     <script src="./js/ui/editorView.js" defer></script>
     <script src="./js/ui/detailView.js" defer></script>
+
     <script src="./js/app.js" defer></script>
   </body>
 </html>
