@@ -1,0 +1,419 @@
+:root {
+  --bg: #f7f7ff;
+  --bg-elevated: #ffffff;
+  --fg: #2c2c2c;
+  --muted: #6e6e6e;
+
+  --accent: #fb8c00;
+  --accent-soft: #ffe9cc;
+
+  --accent2: #7c4dff;
+  --accent2-soft: #f0e6ff;
+
+  --accent3: #4dd0e1;
+  --accent3-soft: #dffcff;
+
+  --danger: #ef5350;
+  --danger-soft: #ffebeb;
+
+  --border: #e0e0f0;
+  --card: #ffffff;
+  --nav-bg: #ffffff;
+}
+
+/* RESET / BAZA */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, sans-serif;
+  background: linear-gradient(180deg, #fafaff 0%, #f7f7ff 30%, #fdfcff 100%);
+  color: var(--fg);
+}
+
+/* Główny kontener */
+#app-root {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+/* NAGŁÓWEK I STOPKA */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.app-header nav {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-header nav a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    transform 0.1s ease;
+}
+
+.app-header nav a:hover {
+  color: var(--fg);
+  border-color: var(--border);
+  background: #f3f0ff;
+  transform: translateY(-1px);
+}
+
+#installButton {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  color: #6b3b00;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+#installButton:hover {
+  background: var(--accent);
+  color: #3b1e00;
+  transform: translateY(-1px);
+}
+
+.app-footer {
+  border-top: 1px solid var(--border);
+  padding: 12px 16px 20px;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* WIDOKI / NAGŁÓWKI WIDOKÓW */
+[data-view] {
+  display: none;
+  margin-top: 16px;
+}
+
+[data-view].active {
+  display: block;
+}
+
+.view-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.view-header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+/* LISTA NOTATEK */
+.notes-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.notes-list li {
+  background: var(--bg-elevated);
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.notes-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.12);
+}
+
+.notes-list li h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.notes-list li p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.notes-list li small {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.notes-list li .button-primary {
+  margin-top: 6px;
+  align-self: flex-start;
+}
+
+/* FORMULARZE / INPUTY */
+label {
+  display: block;
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d9d9ff;
+  background: #ffffff;
+  color: #333333;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a0a0c0;
+}
+
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--accent2);
+  outline-offset: 2px;
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.15);
+}
+
+/* Search */
+#searchInput {
+  max-width: 260px;
+}
+
+/* PRZYCISKI */
+button,
+.button-primary,
+.button-secondary,
+.button-danger {
+  font-size: 13px;
+  border-radius: 999px;
+  padding: 9px 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease,
+    color 0.1s ease;
+}
+
+/* główny przycisk + "Nowa" */
+.button-primary,
+#newNoteButton {
+  background: linear-gradient(135deg, var(--accent) 10%, #ffb74d 100%);
+  color: #4a2600;
+  font-weight: 600;
+  box-shadow: 0 3px 6px rgba(251, 140, 0, 0.35);
+}
+
+.button-primary:hover,
+#newNoteButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(251, 140, 0, 0.45);
+}
+
+/* przycisk neutralny */
+.button-secondary {
+  background: #ffffff;
+  color: var(--fg);
+  border: 1px solid var(--border);
+}
+
+.button-secondary:hover {
+  background: #f3f3ff;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* przycisk niebezpieczny */
+.button-danger {
+  background: linear-gradient(135deg, #ef5350 10%, #ff867c 100%);
+  color: #3a0505;
+  font-weight: 600;
+  box-shadow: 0 3px 6px rgba(239, 83, 80, 0.35);
+}
+
+.button-danger:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 10px rgba(239, 83, 80, 0.45);
+}
+
+/* (GPS, POWIADOMIENIA) */
+.helper-block {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--accent2-soft);
+  border: 1px solid #d6c6ff;
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.12);
+}
+
+.helper-block h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.helper-block p {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.helper-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+/* przyciski w helperach */
+.helper-actions button {
+  background: #ffffff;
+  border: 1px solid #e3ddff;
+  box-shadow: 0 3px 6px rgba(124, 77, 255, 0.15);
+  font-size: 13px;
+}
+
+.helper-actions button:hover {
+  background: #faf7ff;
+}
+
+/* tekst pomocniczy */
+.helper-info {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* AKCJE DÓŁ: FORMULARZ / SZCZEGÓŁY */
+.form-actions {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.detail-actions {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* BADGE OFFLINE */
+#offlineBadge {
+  margin-left: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+/* ARTYKUŁ SZCZEGÓŁÓW NOTATKI */
+#noteDetail {
+  background: var(--bg-elevated);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+}
+
+#noteDetail h2,
+#noteDetail h3 {
+  margin-top: 0;
+}
+
+/* FOCUS – DOSTĘPNOŚĆ */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--accent3);
+  outline-offset: 2px;
+}
+
+/* RESPONSYWNOŚĆ */
+@media (max-width: 640px) {
+  #app-root {
+    padding: 12px;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .view-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #searchInput {
+    max-width: 100%;
+  }
+
+  .helper-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-actions,
+  .detail-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
