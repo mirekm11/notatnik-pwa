@@ -44,7 +44,7 @@ editBtn.onclick = () => Router.go("editor", DetailView.currentId);
 readBtn.onclick = () => DetailView.read();
 backBtn.onclick = () => Router.go("list");
 
-// OFFLINE
+// offline
 const badge = document.getElementById("offlineBadge");
 function updateOnline() {
   badge.hidden = navigator.onLine;
