@@ -1,44 +1,54 @@
-// app.js — bootstrap aplikacji (bez logiki danych)
-// Tu startujemy router, podpinamy globalne eventy i proste UI.
+function showView(name) {
+  document.querySelectorAll(".view").forEach((v) => v.classList.add("hidden"));
+  document.getElementById(`view-${name}`).classList.remove("hidden");
+}
 
-function toggleOfflineBadge() {
-  const badge = document.getElementById("offlineBadge");
-  if (!badge) return;
-  if (navigator.onLine) {
-    badge.hidden = true;
-  } else {
-    badge.hidden = false;
+function handleRoute() {
+  const { view, id } = Router.parse();
+
+  if (view === "list") {
+    showView("list");
+    ListView.render();
+  }
+
+  if (view === "editor") {
+    showView("editor");
+    EditorView.open(id);
+  }
+
+  if (view === "detail") {
+    showView("detail");
+    DetailView.open(id);
   }
 }
 
-function bindHeaderNav() {
-  // Przyciski/menu z index.html (header)
-  const newNoteButton = document.getElementById("newNoteButton");
-  if (newNoteButton) {
-    newNoteButton.addEventListener("click", () => {
-      // przejdź do edytora
-      window.AppRouter.navigate("/edit");
-    });
-  }
+window.addEventListener("hashchange", handleRoute);
+document.addEventListener("DOMContentLoaded", handleRoute);
 
-  // Linki w headerze (Lista / Dodaj) już mają href z #,
-  // ale można je ewentualnie obsłużyć dodatkowymi eventami.
+// NAV
+goList.onclick = () => Router.go("list");
+goNew.onclick = () => Router.go("editor");
+
+// FORM
+noteForm.onsubmit = (e) => {
+  e.preventDefault();
+  EditorView.save();
+  Router.go("list");
+};
+
+cancelEdit.onclick = () => Router.go("list");
+
+// DETAIL
+deleteBtn.onclick = () => DetailView.remove();
+editBtn.onclick = () => Router.go("editor", DetailView.currentId);
+readBtn.onclick = () => DetailView.read();
+backBtn.onclick = () => Router.go("list");
+
+// OFFLINE
+const badge = document.getElementById("offlineBadge");
+function updateOnline() {
+  badge.hidden = navigator.onLine;
 }
-
-async function initApplication() {
-  // 1) Router
-  window.AppRouter.init();
-
-  // 2) Status offline/online
-  toggleOfflineBadge();
-  window.addEventListener("online", toggleOfflineBadge);
-  window.addEventListener("offline", toggleOfflineBadge);
-
-  // 3) Proste akcje z headera
-  bindHeaderNav();
-
-  // 4) (Później) rejestracja Service Workera, obsługa instalacji itd.
-  //   - Zrobimy to, gdy dodamy sw.js.
-}
-
-document.addEventListener("DOMContentLoaded", initApplication);
+window.addEventListener("online", updateOnline);
+window.addEventListener("offline", updateOnline);
+updateOnline();

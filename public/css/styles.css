@@ -1,0 +1,219 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background: #f3f1ff;
+  color: #333;
+  padding-bottom: 40px;
+}
+
+/*HEADER */
+
+.app-header {
+  background: #6a5acd;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.app-header h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.app-header nav button {
+  margin: 0 5px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: #6a5acd;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.app-header nav button:hover {
+  background: #ece8ff;
+}
+
+/*Widoki */
+
+.view {
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+/*  Lista ntatek. */
+
+#notesList {
+  list-style: none;
+  margin-top: 10px;
+}
+
+#notesList li {
+  background: white;
+  padding: 16px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+#notesList h3 {
+  margin-bottom: 6px;
+}
+
+#notesList p {
+  color: #555;
+  margin-bottom: 10px;
+}
+
+#notesList button {
+  background: #6a5acd;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/*Form */
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #c7c2ff;
+  font-size: 16px;
+  background: white;
+}
+
+button[type="submit"] {
+  background: #6a5acd;
+  color: white;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="button"] {
+  background: #b8b2ff;
+  color: white;
+  font-weight: 500;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="button"]:hover {
+  background: #a29bff;
+}
+
+/* Informacje */
+.info-message {
+  font-size: 14px;
+  color: #6a5acd;
+}
+
+/* detale*/
+
+#detailContainer {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+#detailContainer h3 {
+  margin-bottom: 10px;
+}
+
+#detailContainer p {
+  margin-bottom: 10px;
+}
+
+#detailMessage {
+  margin-top: 10px;
+  color: #6a5acd;
+}
+
+/* Przyciski w szczegółach */
+
+.view button {
+  margin: 5px 0;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+#readButton {
+  background: #6a5acd;
+  color: white;
+}
+
+#remindButton {
+  background: #e3dfff;
+  color: #6a5acd;
+}
+
+#editButton {
+  background: #ffe083;
+}
+
+#deleteButton {
+  background: #ff6b6b;
+  color: white;
+}
+
+#backButton {
+  background: #b8b2ff;
+  color: white;
+}
+
+/* offline. */
+
+#offlineBadge {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #ff6b6b;
+}
+
+/* Mobile   */
+
+@media (max-width: 600px) {
+  .app-header h1 {
+    font-size: 22px;
+  }
+
+  button {
+    font-size: 15px;
+  }
+}
