@@ -1,16 +1,13 @@
-const Router = (() => {
-  function go(view, param = null) {
-    location.hash = param ? `#/${view}/${param}` : `#/${view}`;
-  }
+const Router = {
+  go(view, id = null) {
+    location.hash = id ? `#/${view}/${id}` : `#/${view}`;
+  },
 
-  function parse() {
-    const hash = location.hash.replace("#/", "");
-    const parts = hash.split("/");
+  parse() {
+    const parts = location.hash.replace("#/", "").split("/");
     return {
       view: parts[0] || "list",
       id: parts[1] || null,
     };
-  }
-
-  return { go, parse };
-})();
+  },
+};

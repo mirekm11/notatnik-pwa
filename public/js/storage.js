@@ -1,27 +1,31 @@
-const Storage = (() => {
-  const KEY = "notes";
+const Storage = {
+  KEY: "notes",
 
-  function load() {
-    return JSON.parse(localStorage.getItem(KEY) || "[]");
-  }
+  load() {
+    return JSON.parse(localStorage.getItem(this.KEY) || "[]");
+  },
 
-  function save(notes) {
-    localStorage.setItem(KEY, JSON.stringify(notes));
-  }
+  save(notes) {
+    localStorage.setItem(this.KEY, JSON.stringify(notes));
+  },
 
-  function add(note) {
-    const notes = load();
+  add(note) {
+    const notes = this.load();
     notes.push(note);
-    save(notes);
-  }
+    this.save(notes);
+  },
 
-  function remove(id) {
-    save(load().filter((n) => n.id !== id));
-  }
+  update(note) {
+    const notes = this.load().map((n) => (n.id === note.id ? note : n));
+    this.save(notes);
+  },
 
-  function get(id) {
-    return load().find((n) => n.id === id);
-  }
+  remove(id) {
+    const notes = this.load().filter((n) => n.id !== id);
+    this.save(notes);
+  },
 
-  return { load, add, remove, get };
-})();
+  get(id) {
+    return this.load().find((n) => n.id === id) || null;
+  },
+};

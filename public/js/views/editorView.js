@@ -4,31 +4,69 @@ const EditorView = {
   open(id = null) {
     this.currentId = id;
 
-    document.getElementById("titleInput").value = "";
-    document.getElementById("contentInput").value = "";
+    const titleInput = document.getElementById("titleInput");
+    const contentInput = document.getElementById("contentInput");
+    const categoryInput = document.getElementById("categoryInput");
+    const colorInput = document.getElementById("colorInput");
+    const pinInput = document.getElementById("pinInput");
 
-    if (id) {
-      const note = Storage.get(id);
-      if (note) {
-        document.getElementById("titleInput").value = note.title;
-        document.getElementById("contentInput").value = note.content;
-      }
+    // domyślne wartości
+    titleInput.value = "";
+    contentInput.value = "";
+    categoryInput.value = "";
+    colorInput.value = "";
+    pinInput.checked = false;
+
+    if (!id) return;
+
+    const note = Storage.get(id);
+    if (!note) {
+      Router.go("list");
+      return;
     }
+
+    titleInput.value = note.title || "";
+    contentInput.value = note.content || "";
+    categoryInput.value = note.category || "";
+    colorInput.value = note.color || "";
+    pinInput.checked = !!note.pinned;
   },
 
   save() {
-    const title = titleInput.value.trim();
-    const content = contentInput.value.trim();
+    const titleInput = document.getElementById("titleInput");
+    const contentInput = document.getElementById("contentInput");
+    const categoryInput = document.getElementById("categoryInput");
+    const colorInput = document.getElementById("colorInput");
+    const pinInput = document.getElementById("pinInput");
 
-    if (!title && !content) return;
+    const title = (titleInput.value || "").trim();
+    const content = (contentInput.value || "").trim();
 
-    Storage.add({
-      id: Date.now().toString(),
+    // walidacja
+    if (!title && !content) {
+      alert("notatka nie może być pusta");
+      return;
+    }
+
+    const wordCount = content.split(/\s+/).filter(Boolean).length;
+    if (wordCount > 150) {
+      alert("maksymalnie 150 słów");
+      return;
+    }
+
+    const note = {
+      id: this.currentId || Date.now().toString(),
       title,
       content,
+      category: categoryInput.value || "",
+      color: colorInput.value || "",
+      pinned: !!pinInput.checked,
       createdAt: new Date().toISOString(),
-    });
+    };
 
-    showNotification("Notatka zapisana ✔");
+    if (this.currentId) Storage.update(note);
+    else Storage.add(note);
+
+    Router.go("list");
   },
 };

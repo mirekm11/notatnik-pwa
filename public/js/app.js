@@ -1,54 +1,64 @@
-function showView(name) {
-  document.querySelectorAll(".view").forEach((v) => v.classList.add("hidden"));
-  document.getElementById(`view-${name}`).classList.remove("hidden");
-}
+document.addEventListener("DOMContentLoaded", () => {
+  const views = {
+    list: document.getElementById("view-list"),
+    editor: document.getElementById("view-editor"),
+    detail: document.getElementById("view-detail"),
+  };
 
-function handleRoute() {
-  const { view, id } = Router.parse();
-
-  if (view === "list") {
-    showView("list");
-    ListView.render();
+  function hideAll() {
+    Object.values(views).forEach((view) => view.classList.add("hidden"));
   }
 
-  if (view === "editor") {
-    showView("editor");
-    EditorView.open(id);
+  function handleRoute() {
+    const route = Router.parse();
+    hideAll();
+
+    if (route.view === "list") {
+      views.list.classList.remove("hidden");
+      ListView.render();
+      return;
+    }
+
+    if (route.view === "editor") {
+      views.editor.classList.remove("hidden");
+      EditorView.open(route.id);
+      return;
+    }
+
+    if (route.view === "detail") {
+      views.detail.classList.remove("hidden");
+      DetailView.open(route.id);
+      return;
+    }
+
+    Router.go("list");
   }
 
-  if (view === "detail") {
-    showView("detail");
-    DetailView.open(id);
+  // formularz
+  const noteForm = document.getElementById("noteForm");
+  const cancelEdit = document.getElementById("cancelEdit");
+
+  noteForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    EditorView.save();
+  });
+
+  cancelEdit.addEventListener("click", () => Router.go("list"));
+
+  // filtry listy
+  document
+    .getElementById("searchInput")
+    .addEventListener("input", () => ListView.render());
+  document
+    .getElementById("onlyPinned")
+    .addEventListener("change", () => ListView.render());
+
+  window.addEventListener("hashchange", handleRoute);
+
+  // service worker
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
   }
-}
 
-window.addEventListener("hashchange", handleRoute);
-document.addEventListener("DOMContentLoaded", handleRoute);
-
-// NAV
-goList.onclick = () => Router.go("list");
-goNew.onclick = () => Router.go("editor");
-
-// FORM
-noteForm.onsubmit = (e) => {
-  e.preventDefault();
-  EditorView.save();
-  Router.go("list");
-};
-
-cancelEdit.onclick = () => Router.go("list");
-
-// DETAIL
-deleteBtn.onclick = () => DetailView.remove();
-editBtn.onclick = () => Router.go("editor", DetailView.currentId);
-readBtn.onclick = () => DetailView.read();
-backBtn.onclick = () => Router.go("list");
-
-// offline
-const badge = document.getElementById("offlineBadge");
-function updateOnline() {
-  badge.hidden = navigator.onLine;
-}
-window.addEventListener("online", updateOnline);
-window.addEventListener("offline", updateOnline);
-updateOnline();
+  handleRoute();
+});
