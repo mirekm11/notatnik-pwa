@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("searchInput")
     .addEventListener("input", () => ListView.render());
+
   document
     .getElementById("onlyPinned")
     .addEventListener("change", () => ListView.render());
@@ -57,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // service worker
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(() => {});
+    navigator.serviceWorker.register("./sw.js").catch(console.error);
   }
 
   handleRoute();
