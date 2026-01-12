@@ -5,13 +5,13 @@
 
 body {
   margin: 0;
-  background: #f3f1ff;
+  background: #e6e6e2;
   color: #222;
 }
 
 /* HEADER */
 .app-header {
-  background: #6a5acd;
+  background: #f4cc6f;
   color: #fff;
   padding: 26px 16px;
   text-align: center;
@@ -38,8 +38,8 @@ body {
   text-decoration: none;
   padding: 10px 18px;
   border-radius: 999px;
-  background: #ffffff;
-  color: #6a5acd;
+  background: #f8c8f3;
+  color: #030303;
   font-weight: 700;
   border: 2px solid rgba(0, 0, 0, 0.75);
 }
@@ -63,7 +63,14 @@ h2 {
 
 /* INPUTS */
 .input,
-.select,
+.select {
+  width: 100%;
+  border: 1px solid #d6d2ff;
+  border-radius: 14px;
+  padding: 14px 16px;
+  font-size: 16px;
+  background: #fffefe;
+}
 .textarea {
   width: 100%;
   border: 1px solid #d6d2ff;
@@ -76,6 +83,7 @@ h2 {
 .textarea {
   min-height: 150px;
   resize: vertical;
+  background-color: #f6f6f6;
 }
 
 /* FILTERS */
@@ -167,6 +175,7 @@ h2 {
 /* FORM */
 .form {
   padding: 18px;
+  background-color: #e4e4e4;
 }
 
 .field {
@@ -191,23 +200,23 @@ h2 {
 }
 
 .btn-primary {
-  background: #5e55d6;
+  background: #61ba61;
   color: #fff;
 }
 
 .btn-secondary {
-  background: #e8e6ff;
-  color: #5e55d6;
+  background: hsl(191, 47%, 62%);
+  color: #ffffff;
 }
 
 .btn-danger {
-  background: #ff6b6b;
+  background: #f37575;
   color: #fff;
 }
 
 .btn-light {
-  background: #edeaff;
-  color: #111;
+  background: #6681c0;
+  color: #ffffff;
 }
 
 .form-actions {
