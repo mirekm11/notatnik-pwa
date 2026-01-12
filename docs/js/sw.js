@@ -1,15 +1,16 @@
-const CACHE_NAME = "notatnik-pwa-v5";
+const CACHE_NAME = "notatnik-pwa-v6";
 
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
   "./offline.html",
   "./manifest.webmanifest",
+
   "./css/styles.css",
 
+  "./js/app.js",
   "./js/router.js",
   "./js/storage.js",
-  "./js/app.js",
 
   "./js/utils/tts.js",
   "./js/utils/notifications.js",
