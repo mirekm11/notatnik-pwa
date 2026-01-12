@@ -1,5 +1,3 @@
-const CACHE_NAME = "notatnik-pwa-v4";
-
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -26,6 +24,8 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(FILES_TO_CACHE))
   );
+
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -37,15 +37,31 @@ self.addEventListener("activate", (event) => {
           keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k))
         )
       )
+      .then(() => self.clients.claim())
   );
 });
 
 self.addEventListener("fetch", (event) => {
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("./index.html"))
+    );
+    return;
+  }
+
   event.respondWith(
-    fetch(event.request).catch(() =>
-      caches
-        .match(event.request)
-        .then((res) => res || caches.match("./offline.html"))
-    )
+    fetch(event.request)
+      .then((response) => {
+        const responseClone = response.clone();
+        caches
+          .open(CACHE_NAME)
+          .then((cache) => cache.put(event.request, responseClone));
+        return response;
+      })
+      .catch(() =>
+        caches
+          .match(event.request)
+          .then((cached) => cached || caches.match("./offline.html"))
+      )
   );
 });
