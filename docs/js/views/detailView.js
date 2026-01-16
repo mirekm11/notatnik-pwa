@@ -1,7 +1,7 @@
 const DetailView = {
   open(id) {
     const box = document.getElementById("noteDetail");
-    box.innerHTML = "";
+    box.textContent = "";
 
     const note = Storage.get(id);
     if (!note) {

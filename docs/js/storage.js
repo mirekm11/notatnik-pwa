@@ -2,27 +2,42 @@ const Storage = {
   KEY: "notes",
 
   load() {
-    return JSON.parse(localStorage.getItem(this.KEY) || "[]");
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      return JSON.parse(raw || "[]");
+    } catch (error) {
+      console.error("błąd odczytu localStorage:", error);
+      return [];
+    }
   },
 
   save(notes) {
-    localStorage.setItem(this.KEY, JSON.stringify(notes));
+    try {
+      localStorage.setItem(this.KEY, JSON.stringify(notes));
+      return true;
+    } catch (error) {
+      console.error("błąd zapisu localStorage:", error);
+      alert(
+        "nie udało się zapisać danych (brak miejsca lub blokada przeglądarki)"
+      );
+      return false;
+    }
   },
 
   add(note) {
     const notes = this.load();
     notes.push(note);
-    this.save(notes);
+    return this.save(notes);
   },
 
   update(note) {
     const notes = this.load().map((n) => (n.id === note.id ? note : n));
-    this.save(notes);
+    return this.save(notes);
   },
 
   remove(id) {
     const notes = this.load().filter((n) => n.id !== id);
-    this.save(notes);
+    return this.save(notes);
   },
 
   get(id) {

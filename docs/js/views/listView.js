@@ -5,7 +5,7 @@ const ListView = {
     const onlyPinnedCheckbox = document.getElementById("onlyPinned");
 
     // czyścimy listę
-    notesList.innerHTML = "";
+    notesList.textContent = "";
 
     const searchText = (searchInput.value || "").toLowerCase().trim();
     const onlyPinned = !!onlyPinnedCheckbox.checked;
