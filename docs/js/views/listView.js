@@ -25,7 +25,7 @@ const ListView = {
       });
     }
 
-    // sort,przypięte na górze
+    // sort
     notes.sort((a, b) => (b.pinned === true) - (a.pinned === true));
 
     // render
