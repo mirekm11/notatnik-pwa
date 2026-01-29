@@ -17,9 +17,7 @@ const Storage = {
       return true;
     } catch (error) {
       console.error("błąd zapisu localStorage:", error);
-      alert(
-        "nie udało się zapisać danych (brak miejsca lub blokada przeglądarki)"
-      );
+      alert("nie udało się zapisać danych ");
       return false;
     }
   },

@@ -59,8 +59,11 @@ const EditorView = {
       createdAt: new Date().toISOString(),
     };
 
-    const ok = this.currentId ? Storage.update(note) : Storage.add(note);
-    if (!ok) return;
+    if (this.currentId) {
+      Storage.update(note);
+    } else {
+      Storage.add(note);
+    }
 
     Router.go("list");
   },
