@@ -6,14 +6,12 @@ const EditorView = {
 
     const titleInput = document.getElementById("titleInput");
     const contentInput = document.getElementById("contentInput");
-    const categoryInput = document.getElementById("categoryInput");
     const colorInput = document.getElementById("colorInput");
     const pinInput = document.getElementById("pinInput");
 
     // domyślne wartości
     titleInput.value = "";
     contentInput.value = "";
-    categoryInput.value = "";
     colorInput.value = "";
     pinInput.checked = false;
 
@@ -27,7 +25,6 @@ const EditorView = {
 
     titleInput.value = note.title || "";
     contentInput.value = note.content || "";
-    categoryInput.value = note.category || "";
     colorInput.value = note.color || "";
     pinInput.checked = !!note.pinned;
   },
@@ -35,7 +32,6 @@ const EditorView = {
   save() {
     const titleInput = document.getElementById("titleInput");
     const contentInput = document.getElementById("contentInput");
-    const categoryInput = document.getElementById("categoryInput");
     const colorInput = document.getElementById("colorInput");
     const pinInput = document.getElementById("pinInput");
 
@@ -58,7 +54,6 @@ const EditorView = {
       id: this.currentId || Date.now().toString(),
       title,
       content,
-      category: categoryInput.value || "",
       color: colorInput.value || "",
       pinned: !!pinInput.checked,
       createdAt: new Date().toISOString(),

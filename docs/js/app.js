@@ -56,10 +56,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("hashchange", handleRoute);
 
-  // service worker
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("./sw.js").catch(console.error);
-  }
-
   handleRoute();
 });
