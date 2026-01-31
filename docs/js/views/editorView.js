@@ -64,6 +64,7 @@ const EditorView = {
     } else {
       Storage.add(note);
     }
+    showNotification("Zapisano notatkę ✅");
 
     Router.go("list");
   },
